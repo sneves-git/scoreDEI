@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="20">
+    <title>Statistics</title>
+    <meta charset="utf8" />
+  </head>
+  <body>
+  <br/>
+    <div>
+      <button><a th:href="@{statisticsMenu(type='Games')}">Games</a></button>
+      <button><a th:href="@{statisticsMenu(type='Victories')}">Victories</a></button>
+      <button><a th:href="@{statisticsMenu(type='Defeats')}">Defeats</a></button>
+      <button><a th:href="@{statisticsMenu(type='Draws')}">Draws</a></button>
+    </div>
+  <br/>
+    <table border="1">
+      <tr>
+        <th>TEAM</th>
+        <th>Games</th>
+        <th>Victories</th>
+        <th>Defeats</th>
+        <th>Draws</th>
+      </tr>
+      <tr th:each="t : ${teams}">
+        <td style="height:30px;width:200px;text-align: center"><img th:src="${t.getImage()}" th:text="${t.getName()}" height="50" width="50"></img></td>
+        <td style="height:30px;width:200px;text-align: center" th:text="${t.getNumber_of_games()}">Nr of games</td>
+        <td style="height:30px;width:200px;text-align: center" th:text="${t.getVictories()}">Nr of victories</td>
+        <td style="height:30px;width:200px;text-align: center" th:text="${t.getDefeats()}">Nr of defeats</td>
+        <td style="height:30px;width:200px;text-align: center" th:text="${t.getDraws()}">Nr of draws</td>
+      </tr>
+    </table> 
+
+    <div th:text="${'BEST SCORER: ' + bestScorer}"> </div>
+  </body>
+</html>

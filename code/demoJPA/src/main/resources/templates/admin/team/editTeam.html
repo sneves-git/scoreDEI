@@ -1,0 +1,27 @@
+<form th:action="@{/saveEditedTeam}" th:object="${team}" method="post">
+  <div class="form-row">
+    <div>
+      <label>Name</label>
+      <input
+        type="text"
+        th:field="*{name}"
+        th:placeholder="${oldTeam.getName()}"
+      />
+    </div>
+    <div th:if="${nameMessage != ''}">
+      <text style="color: red" th:text="${nameMessage}"></text>
+    </div>
+    <div>
+      <label>Image URL</label>
+      <input
+        type="text"
+        th:field="*{image}"
+        th:placeholder="${oldTeam.getImage()}"
+      />
+    </div>
+    <div th:if="${imageMessage != ''}">
+      <text style="color: red" th:text="${imageMessage}"></text>
+    </div>
+    <button type="submit">Edit team</button>
+  </div>
+</form>

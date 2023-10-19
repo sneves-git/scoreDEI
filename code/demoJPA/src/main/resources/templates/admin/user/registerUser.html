@@ -1,0 +1,45 @@
+<form th:action="@{/saveUser}" th:object="${user}" method="post">
+  <div class="form-row">
+    <div>
+      <label>Name</label>
+      <input type="text" th:field="*{name}" required />
+    </div>
+    <div>
+      <label>Username</label>
+      <input type="text" th:field="*{username}" required />
+    </div>
+    <div th:if="${usernameMessage != ''}">
+      <text style="color: red" th:text="${usernameMessage}"></text>
+    </div>
+    <div>
+      <label>Email</label>
+      <input
+        type="text"
+        th:field="*{email}"
+        placeholder="name@example.com"
+        required
+      />
+    </div>
+
+    <div th:if="${emailMessage != ''}">
+      <text style="color: red" th:text="${emailMessage}"></text>
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" th:field="*{password}" required />
+    </div>
+    <div>
+      <label>Phone</label>
+      <input type="tel" th:field="*{phone}" required />
+    </div>
+
+    <div th:if="${phoneMessage != ''}">
+      <text style="color: red" th:text="${phoneMessage}"></text>
+    </div>
+    <div>
+      <label>Admin</label>
+      <input type="checkbox" th:field="*{admin}" />
+    </div>
+    <button type="submit">Register user</button>
+  </div>
+</form>

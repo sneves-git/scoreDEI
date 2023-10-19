@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>List of Teams</title>
+  </head>
+  <body>
+    <h1>List of Teams</h1>
+
+    <div>
+      <table border="1">
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <tr th:each="team : ${teams}">
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${team.getName()}"
+          >
+            username
+          </td>
+          <td style="height:30px;width:200px;text-align: center"><img th:src="${team.getImage()}" height="50" width="50"></img></td>
+        <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{editTeam(id=${team.getId()})}">here</a>
+          </td>
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{deleteTeam(teamName=${team.getName()})}">here</a>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+</br>
+
+    <div>
+        <button><a th:href="@{addNewTeam}">Add team</a></button>
+      </div>
+    <br />
+  </body>
+</html>

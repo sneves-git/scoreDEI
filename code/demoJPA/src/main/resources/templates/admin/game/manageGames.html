@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>List of Games</title>
+  </head>
+  <body>
+    <h1>List of Games</h1>
+
+    <div>
+      <table border="1">
+        <tr>
+          <th>Team A</th>
+          <th>Team B</th>
+          <th>Location</th>
+          <th>Game Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <tr th:each="game : ${games}">
+          <td style="height:30px;width:200px;text-align: center"><img th:src="${game.getTeams().get(0).getImage()}" th:text="  ${game.getTeams().get(0).getName()}" height="25" width="25"></img></td>
+          <td style="height:30px;width:200px;text-align: center"><img th:src="${game.getTeams().get(1).getImage()}" th:text="  ${game.getTeams().get(1).getName()}" height="25" width="25"></img></td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${game.getLocation()}"
+          >
+            Location
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${game.getGame_date()}"
+          >
+            Game Date
+          </td>
+
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{editGame(id=${game.getId()})}">here</a>
+          </td>
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{deleteGame(id=${game.getId()})}">here</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </br>
+    <div>
+      <button><a th:href="@{addNewGame}">Add game</a></button>
+    </div>
+  </body>
+</html>

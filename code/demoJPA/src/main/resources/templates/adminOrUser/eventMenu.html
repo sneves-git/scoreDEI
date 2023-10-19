@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event menu</title>
+    <meta charset="utf8" />
+  </head>
+  <body>
+    <div>
+      <text>Register an event</text>
+    </div>
+
+    <div>
+      <button>
+        <a th:href="@{stateEvents(type='Game started')}">Game started</a>
+      </button>
+    </div>
+
+    <div>
+      <button>
+        <a th:href="@{stateEvents(type='Game finished')}">Game finished</a>
+      </button>
+    </div>
+
+    <div>
+      <button><a th:href="@{newPlayerTimeEvent(type='Goal')}">Goal</a></button>
+    </div>
+
+    <div>
+      <button>
+        <a th:href="@{newPlayerTimeEvent(type='Yellow card')}">Yellow card</a>
+      </button>
+    </div>
+
+    <div>
+      <button>
+        <a th:href="@{newPlayerTimeEvent(type='Red card')}">Red card</a>
+      </button>
+    </div>
+
+    <div>
+      <button>
+        <a th:href="@{stateEvents(type='Game interrupted')}"
+          >Game interrupted</a
+        >
+      </button>
+    </div>
+
+    <div>
+      <button>
+        <a th:href="@{stateEvents(type='Resume game')}">Resume game</a>
+      </button>
+    </div>
+  </body>
+</html>

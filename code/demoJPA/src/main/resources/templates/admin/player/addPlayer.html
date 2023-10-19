@@ -1,0 +1,39 @@
+<form th:action="@{/savePlayer}" th:object="${player}" method="post">
+  <div class="form-row">
+    <div>
+      <label>Name</label>
+      <input type="text" th:field="*{name}" required />
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Game position</label>
+      <select th:field="*{game_position}" required>
+        <option value="">Select a game position</option>
+        <option value="Defender">Defender</option>
+        <option value="Goalkeeper">Goalkeeper</option>
+        <option value="Attacker">Attacker</option>
+        <option value="Midfielder">Midfielder</option>
+      </select>
+    </div>
+    <div>
+      <label>Birthday</label>
+      <input
+        type="date"
+        th:field="*{birth_date}"
+        th:attr="max=${currentDate}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="team">Team</label>
+      <select class="Team" th:field="*{team}" id="team" required>
+        <option value="">Select a team</option>
+        <option
+          th:each="team : ${allTeams}"
+          th:value="${team.name}"
+          th:text="${team.name}"
+        ></option>
+      </select>
+    </div>
+    <button type="submit">Add Player</button>
+  </div>
+</form>

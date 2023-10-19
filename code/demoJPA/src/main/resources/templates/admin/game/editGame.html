@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <form
+      style="width: 500px; margin: auto; margin-top: 10%; font-weight: bold"
+      th:action="@{/saveEditedGame}"
+      th:object="${game}"
+      method="post"
+    >
+      <div class="form-row">
+        <div class="form-group">
+          <label>Team A</label>
+          <select class="form-select" th:field="*{A_Team}">
+            <option value="">Select a team</option>
+            <option
+              th:each="team : ${allTeams}"
+              th:value="${team.getName()}"
+              th:text="${team.getName()}"
+            ></option>
+          </select>
+        </div>
+        <br />
+        <div class="form-group">
+          <label>Team B</label>
+          <select class="form-select" th:field="*{B_Team}">
+            <option value="">Select a team</option>
+            <option
+              th:each="team : ${allTeams}"
+              th:value="${team.getName()}"
+              th:text="${team.getName()}"
+            ></option>
+          </select>
+        </div>
+        <br />
+        <div>
+          <label>Location</label>
+          <input
+            class="form-select"
+            type="text"
+            th:field="*{location}"
+            th:placeholder="${oldGame.getLocation()}"
+          />
+        </div>
+        <br />
+        <div>
+          <label>Date</label>
+          <input
+            class="form-select"
+            type="datetime-local"
+            th:field="*{game_date}"
+            th:placeholder="${oldGame.getGame_date()}"
+            th:value="${oldGame.getGame_date()}"
+          />
+        </div>
+        <br />
+        <button class="btn btn-success" type="submit">Edit Game</button>
+      </div>
+    </form>
+  </body>
+</html>

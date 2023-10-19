@@ -1,0 +1,16 @@
+<form th:action="@{/login}" th:object="${login}" method="get">
+    <div="form-row">
+    <div>
+        <label>Username</label>
+        <input type="text" th:field="*{username}" required />
+    </div>
+    <br>
+    <div>
+        <label>Password</label>
+        <input type="password" th:field="*{password}" required />
+    </div>
+    <br>
+
+    <button type="submit">Login</button>
+    </div>
+</form>

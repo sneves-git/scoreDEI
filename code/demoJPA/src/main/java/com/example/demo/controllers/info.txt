@@ -1,0 +1,206 @@
+        Team[] teams = {
+                new Team("Sporting", null,
+                        "https://upload.wikimedia.org/wikipedia/pt/thumb/3/3e/Sporting_Clube_de_Portugal.png/180px-Sporting_Clube_de_Portugal.png",
+                        1, 1, 0, 0),
+                new Team("Porto", null,
+                        "https://upload.wikimedia.org/wikipedia/pt/thumb/c/c5/F.C._Porto_logo.png/180px-F.C._Porto_logo.png",
+                        0, 0, 0, 0),
+                new Team("Benfica", null,
+                        "https://upload.wikimedia.org/wikipedia/pt/thumb/f/f0/500px-SL_Benfica_logo_svg.png/180px-500px-SL_Benfica_logo_svg.png",
+                        1, 0, 1, 0)
+        };
+        for (Team t : teams)
+            this.teamService.addTeam(t);
+       
+        Date date = Date.valueOf("2018-10-20");
+        Player[] players = {
+                new Player("Pedro Gonçalves", "Left Midfielder/Wingers", date, 3),
+                new Player("Palhinha", "Left Midfielder/Wingers", date, 0),
+                new Player("Taremi", "Left Midfielder/Wingers", date, 0),
+                new Player("Pepe", "Left Midfielder/Wingers", date, 0),
+                new Player("André Almeida", "Left Midfielder/Wingers", date, 0),
+                new Player("Grimaldo", "Left Midfielder/Wingers", date, 0)
+        };
+        teams[0].setBest_goal_scorer(Integer.toString(players[0].getId()));
+
+        players[0].setTeam(teams[0]);
+        players[1].setTeam(teams[0]);
+        players[2].setTeam(teams[1]);
+        players[3].setTeam(teams[1]);
+        players[4].setTeam(teams[2]);
+        players[5].setTeam(teams[2]);
+
+        Timestamp game_date_0 = Timestamp.valueOf("2007-09-23 10:10:10.0");
+        Timestamp game_date_1 = Timestamp.valueOf("2022-09-23 10:10:10.0");
+        Timestamp game_date_2 = Timestamp.valueOf("2023-09-23 10:10:10.0");
+
+        Football_Game[] games = {
+                new Football_Game(2, 0, "Estádio de Alvalade", game_date_0, 3),
+                new Football_Game(0, 1, "Estádio da Luz", game_date_1, 2),
+                new Football_Game(0, 0, "Estádio do dragão", game_date_2, 0)
+        };
+        games[0].addTeam(teams[0]);
+        games[0].addTeam(teams[1]);
+        games[1].addTeam(teams[2]);
+        games[1].addTeam(teams[0]);
+        games[2].addTeam(teams[1]);
+        games[2].addTeam(teams[2]);
+
+        Timestamp event_date_00 = Timestamp.valueOf("2007-09-23 10:20:10.0");
+        Timestamp event_date_01 = Timestamp.valueOf("2007-09-23 10:30:10.0");
+        Timestamp event_date_02 = Timestamp.valueOf("2007-09-23 10:45:10.0");
+        Timestamp event_date_03 = Timestamp.valueOf("2007-09-23 10:50:10.0");
+        Timestamp event_date_04 = Timestamp.valueOf("2007-09-23 10:51:10.0");
+        Timestamp event_date_05 = Timestamp.valueOf("2007-09-23 10:53:10.0");
+
+        Timestamp event_date_10 = Timestamp.valueOf("2022-09-23 10:20:10.0");
+        Timestamp event_date_11 = Timestamp.valueOf("2022-09-23 10:21:10.0");
+        Timestamp event_date_12 = Timestamp.valueOf("2022-09-23 10:22:10.0");
+        Timestamp event_date_13 = Timestamp.valueOf("2022-09-23 10:23:10.0");
+        Timestamp event_date_14 = Timestamp.valueOf("2022-09-23 10:24:10.0");
+
+        Event[] events = {
+                new Event("Game started", event_date_00, games[0]),
+                new Event("Goal", event_date_01, games[0], players[0], teams[0]),
+                new Event("Game interrupted", event_date_02, games[0]),
+                new Event("Resume game", event_date_03, games[0]),
+                new Event("Goal", event_date_04, games[0], players[0], teams[0]),
+                new Event("Game finished", event_date_05, games[0]),
+
+                new Event("Game started", event_date_10, games[1]),
+                new Event("Yellow card", event_date_11, games[1], players[4], teams[2]),
+                new Event("Red card", event_date_12, games[1], players[5], teams[2]),
+                new Event("Goal", event_date_13, games[1], players[0], teams[0]),
+                new Event("Game interrupted", event_date_14, games[1]),
+
+        };
+
+        // add events to teams
+        teams[0].addEvent(events[1]);
+        teams[0].addEvent(events[4]);
+        teams[0].addEvent(events[9]);
+        teams[2].addEvent(events[7]);
+        teams[2].addEvent(events[8]);
+
+        // add events to players
+        players[0].addEvent(events[1]);
+        players[0].addEvent(events[4]);
+        players[0].addEvent(events[9]);
+
+        players[4].addEvent(events[7]);
+        players[5].addEvent(events[8]);
+
+        for (Player p : players)
+            this.playerService.addPlayer(p);
+
+        for (Football_Game g : games)
+            this.gameService.addGame(g);
+
+        for (Event e : events)
+            this.eventService.addEvent(e);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            -----------
+
+
+
+
+
+
+            
+        // ------- Populate database with teams information
+        Unirest.setTimeouts(0, 0);
+        // isto contem: nome e imagem
+
+        try {
+            HttpResponse<JsonNode> response_teams = Unirest
+                    .get("https://v3.football.api-sports.io/teams?league=94&season=2020")
+                    .header("x-rapidapi-key", "dd16dcce7d90e4c2220f47f7833e0bc0")
+                    .header("x-rapidapi-host", "v3.football.api-sports.io")
+                    .asJson();
+
+
+            JsonObject object = (JsonObject) new JsonParser().parse(response_teams.getBody().toString());
+            JsonArray response = (JsonArray) object.get("response");
+            for (int i = 0; i < response.size(); ++i) {
+                JsonObject obj = (JsonObject) response.get(i);
+                JsonObject team = (JsonObject) obj.get("team");
+                String team_name = (String) team.get("name").toString().replace("\"", "");
+
+                String image = (String) team.get("logo").toString().replace("\"", "");
+                this.teamService.addTeam(new Team(team_name, null, image, 0, 0, 0, 0));
+            }
+        } catch (UnirestException e1) {
+            e1.printStackTrace();
+        }
+
+        // ------- Populate database with teams information
+        Unirest.setTimeouts(0, 0);
+        // isto contem: nome, data de nascimento, team, posicao , numero de golos
+        int total = 30;
+        try {
+            int k = 1;
+            while (true) {
+                HttpResponse<JsonNode> response_players = Unirest
+                        .get("https://v3.football.api-sports.io/players?league=94&season=2020&page=" + k)
+                        .header("x-rapidapi-key", "dd16dcce7d90e4c2220f47f7833e0bc0")
+                        .header("x-rapidapi-host", "v3.football.api-sports.io")
+                        .asJson();
+
+                JsonObject object = (JsonObject) new JsonParser().parse(response_players.getBody().toString());
+                JsonArray response = (JsonArray) object.get("response");
+
+                for (int i = 0; i < response.size(); ++i) {
+                    JsonObject obj = (JsonObject) response.get(i);
+
+                    // name
+                    JsonObject player = (JsonObject) obj.get("player");
+                    String name = (String) player.get("name").toString().replace("\"", "");
+
+                    // Birthday
+                    JsonObject birth = (JsonObject) player.get("birth");
+                    String birth_date = (String) birth.get("date").toString().replace("\"", "");
+                    Date birthday = Date.valueOf(birth_date);
+
+                    // Team
+                    JsonArray statistics = (JsonArray) obj.get("statistics");
+                    JsonObject statistics0 = (JsonObject) statistics.get(0);
+
+                    JsonObject team = (JsonObject) statistics0.get("team");
+                    String team_name = (String) team.get("name").toString().replace("\"", "");
+                    Team t = this.teamService.findTeam(team_name);
+
+                    // position
+                    JsonObject games = (JsonObject) statistics0.get("games");
+                    String position = (String) games.get("position").toString().replace("\"", "");
+                    this.playerService.addPlayer(new Player(name, position, birthday, 0, t));
+                }
+                k++;
+
+                if (k >= 10) {
+                    break;
+                }
+            }
+
+        } catch (UnirestException e1) {
+            e1.printStackTrace();
+        }

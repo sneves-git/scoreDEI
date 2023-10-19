@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>List of players</title>
+  </head>
+  <body>
+    <h1>List of players</h1>
+
+    <div>
+      <button><a th:href="@{addNewPlayer}">Add player</a></button>
+    </div>
+    <div>
+      <table border="1">
+        <tr>
+          <th>Name</th>
+          <th>Game position</th>
+          <th>Birthday</th>
+          <th>Team</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <tr th:each="player : ${players}">
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${player.getName()}"
+          >
+            name
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${player.getGame_position()}"
+          >
+            game position
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${player.getBirthday()}"
+          >
+            birthday
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${player.getTeam().getName()}"
+          >
+            team name
+          </td>
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{editPlayer(id=${player.getId()})}">here</a>
+          </td>
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{deletePlayer(id=${player.getId()})}">here</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br />
+  </body>
+</html>

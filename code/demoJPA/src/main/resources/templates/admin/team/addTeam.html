@@ -1,0 +1,19 @@
+<form th:action="@{/saveTeam}" th:object="${team}" method="post">
+  <div class="form-row">
+    <div>
+      <label>Name</label>
+      <input type="text" th:field="*{name}" required />
+    </div>
+    <div th:if="${nameMessage != ''}">
+      <text style="color: red" th:text="${nameMessage}"></text>
+    </div>
+    <div>
+      <label>Image URL</label>
+      <input type="text" th:field="*{image}" required />
+    </div>
+    <div th:if="${imageMessage != ''}">
+      <text style="color: red" th:text="${imageMessage}"></text>
+    </div>
+    <button type="submit">Add team</button>
+  </div>
+</form>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="20" />
+    <title>Homepage</title>
+    <meta charset="utf8" />
+  </head>
+  <body>
+    <br />
+    <div>
+      <button><a th:href="@{statisticsMenu(type='Games')}">Statistics</a></button>
+    </div>
+    <br />
+
+    <div th:if="${user != null and user.admin}">
+      <button><a th:href="@{settings}">Settings</a></button>
+    </div>
+    <br />
+
+    <div>
+      Games in progress... &emsp;
+      <div th:each="g : ${gamesInProgress}">
+        &emsp;
+        <button>
+          <a
+            th:href="@{gameInfo(id=${g.id})}"
+            th:text="${g.getTeams().get(0).getName() + ' vs ' + g.getTeams().get(1).getName()}"
+          ></a>
+        </button>
+      </div>
+    </div>
+    <br />
+
+    <div>
+      Future games... &emsp;
+      <div th:each="f : ${futureGames}">
+        &emsp;
+        <button>
+          <a
+            th:href="@{gameInfo(id=${f.id})}"
+            th:text="${f.getTeams().get(0).getName() + ' vs ' + f.getTeams().get(1).getName()}"
+          ></a>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

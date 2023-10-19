@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <h1>List of Users</h1>
+
+    <div>
+      <table border="1">
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <tr th:each="user : ${users}">
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${user.getUsername()}"
+          >
+            username
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${user.getName()}"
+          >
+            name
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${user.getEmail()}"
+          >
+            email
+          </td>
+          <td
+            style="height: 30px; width: 200px; text-align: center"
+            th:text="${user.getPhone()}"
+          >
+            phone
+          </td>
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{editUser(id=${user.getId()})}">here</a>
+          </td>
+          <td style="height: 30px; width: 200px; text-align: center">
+            <a th:href="@{deleteUser(username=${user.getUsername()})}">here</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br />
+    <div>
+      <button><a th:href="@{registerUser}">Register user</a></button>
+    </div>
+  </body>
+</html>

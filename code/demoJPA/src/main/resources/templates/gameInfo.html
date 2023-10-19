@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="20">
+    <title>gameInfo</title>
+    <meta charset="utf8" />
+  </head>
+  <body>
+    <div>
+      <div>
+        <img th:src="${game.getTeams().get(0).getImage()}" height="50" width="50"></img>
+        <text th:text="${game.getTeams().get(0).getName()}"></text> &nbsp;
+        <text th:text="${game.A_Goals}"> </text>
+        - 
+        <text th:text="${game.B_Goals}"> </text>
+        <text th:text="${game.getTeams().get(1).getName()}" ></text> 
+        <img th:src="${game.getTeams().get(1).getImage()}" height="50" width="50"></img> &nbsp;
+      </div>
+      <br>
+      <div>
+        &emsp;
+        <label><strong> Date: </strong></label>
+        <text th:text="${game.game_date}"></text>
+      </div>
+
+      <div>
+        &emsp;
+        <label><strong>Location: </strong></label>
+        <text th:text="${game.location}"></text>
+      </div>
+
+      <!-- Tempo de jogo? -->
+      <div>
+        &emsp;
+        <label><strong>Time of game: </strong></label>
+        <text th:text="${game_time + ' min'}" ></text>
+      </div>
+      <br>
+
+
+
+      <div>
+        <table border="1">
+          <tr>
+            <th>TIME</th>
+            <th>EVENT</th>
+            <th>PLAYER</th>
+            <th>TEAM</th>
+          </tr>
+          <tr th:each="info : ${eventsInfo}">
+            <td style="height:30px;width:200px;text-align: center" th:text="${info.get(0)}">time</td>
+            <td style="height:30px;width:200px;text-align: center" th:text="${info.get(1)}">event</td>
+            <td style="height:30px;width:200px;text-align: center" th:text="${info.get(2)}">player</td>
+            <td style="height:30px;width:200px;text-align: center" th:text="${info.get(3)}">team</td>
+          </tr>
+        </table>
+      </div>
+      <br>
+      
+      <div th:if="${user != null}">
+        <button><a th:href="@{eventsMenu}">Add event</a></button>
+      </div>
+    </div>
+  </body>
+</html>
